@@ -1,5 +1,6 @@
 // @ts-ignore
 import { NextFunction, Request, Response } from "express";
+import { HttpError } from "../http/HttpError";
 
 const mockToken = "mock-token-123";
 
@@ -7,19 +8,16 @@ export function mockAuth(req: Request, res: Response, next: NextFunction): void 
   const header = req.header("authorization");
 
   if (!header) {
-    res.status(401).json({ message: "Authentication required" });
-    return;
+    throw new HttpError(401, "UNAUTHORIZED", "Missing token");
   }
 
   const [type, token] = header.split(" ");
   if (type !== "Bearer" || !token) {
-    res.status(401).json({ message: "Authentication required" });
-    return;
+    throw new HttpError(401, "UNAUTHORIZED", "Missing token");
   }
 
   if (token !== mockToken) {
-    res.status(401).json({ message: "Authentication required" });
-    return;
+    throw new HttpError(401, "UNAUTHORIZED", "Invalid credentials");
   }
 
   next();
