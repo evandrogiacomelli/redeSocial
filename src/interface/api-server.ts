@@ -9,7 +9,7 @@ export class ApiServer {
 
     app.use(express.json());
 
-    app.get("/status", (_req: Request, res: Response) => {
+    app.get("/health", (_req: Request, res: Response) => {
       res.json({
         status: "Running",
         timestamp: new Date().toISOString(),
