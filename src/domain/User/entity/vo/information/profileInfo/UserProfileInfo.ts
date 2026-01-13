@@ -1,7 +1,7 @@
-import {UserEmail} from "../shared/UserEmail";
-import {UserName} from "../shared/UserName";
-import {UserPhoneNumber} from "../shared/UserPhoneNumber";
-import {UserUsername} from "../shared/UserUsername";
+import {UserEmail} from "./UserEmail";
+import {UserName} from "./UserName";
+import {UserPhoneNumber} from "./UserPhoneNumber";
+import {UserUsername} from "./UserUsername";
 
 
 export class UserProfileInfo {

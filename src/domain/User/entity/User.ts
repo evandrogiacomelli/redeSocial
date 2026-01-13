@@ -1,34 +1,61 @@
-import {UserId} from "./UserId";
+import {UserId} from "./vo/UserId";
 import {UserInformation} from "./vo/information/UserInformation";
-import {UserLocation} from "./vo/information/UserLocation";
-import {UserName} from "./vo/shared/UserName";
-import {UserEmail} from "./vo/shared/UserEmail";
-import {UserPhoneNumber} from "./vo/shared/UserPhoneNumber";
-import {UserState} from "./vo/information/UserState";
-import {UserRelationship} from "./vo/information/UserRelationship";
-import {UserBirthDate} from "./vo/information/UserBirthDate";
-import {UserBio} from "./vo/information/UserBio";
-import {UserCountry} from "./vo/information/UserCountry";
-import {UserCity} from "./vo/information/UserCity";
+import {UserLocation} from "./vo/information/location/UserLocation";
+import {UserName} from "./vo/information/profileInfo/UserName";
+import {UserEmail} from "./vo/information/profileInfo/UserEmail";
+import {UserPhoneNumber} from "./vo/information/profileInfo/UserPhoneNumber";
+import {UserState} from "./vo/information/location/UserState";
+import {UserRelationship} from "./vo/information/personalData/UserRelationship";
+import {UserBirthDate} from "./vo/information/personalData/UserBirthDate";
+import {UserBio} from "./vo/information/personalData/UserBio";
+import {UserCountry} from "./vo/information/location/UserCountry";
+import {UserCity} from "./vo/information/location/UserCity";
+import {UserVisibility} from "./vo/UserVisibility";
+import {Audit} from "./vo/Audit";
+import {UserPassHash} from "./vo/UserPassHash";
 
 export class User {
     private readonly userId: UserId;
     private userInfo: UserInformation;
     private active: boolean;
+    private visibility: UserVisibility;
+    private audit: Audit;
+    private passwordHash: UserPassHash;
 
-
-    private constructor(id: UserId, userInfo: UserInformation, active: boolean) {
+    private constructor(
+        id: UserId,
+        userInfo: UserInformation,
+        active: boolean,
+        visibility: UserVisibility,
+        audit: Audit,
+        passwordHash: UserPassHash
+    ) {
        this.userId = id;
        this.userInfo = userInfo;
        this.active = active;
+       this.visibility = visibility;
+       this.audit = audit;
+       this.passwordHash = passwordHash;
     }
 
-    static create(id: UserId, userInfo: UserInformation): User {
-        return new User(id, userInfo, true);
+    static create(
+        id: UserId,
+        userInfo: UserInformation,
+        visibility: UserVisibility,
+        passwordHash: UserPassHash
+    ): User {
+        return new User(id, userInfo, true, visibility, Audit.createDefault(), passwordHash);
     }
 
-    static reconstitute(id: UserId, userInfo: UserInformation, active: boolean): User {
-       return new User(id, userInfo, active);
+    static reconstitute(
+        id: UserId,
+        userInfo: UserInformation,
+        active: boolean,
+        visibility: UserVisibility,
+        audit: Audit,
+        passwordHash: UserPassHash
+    ): User {
+       return new User(id, userInfo, active, visibility, audit, passwordHash);
     }
 
 
@@ -39,6 +66,26 @@ export class User {
 
     public getInfo(): UserInformation{
        return this.userInfo;
+    }
+
+    public getVisibility(): UserVisibility {
+        return this.visibility;
+    }
+
+    public getAudit(): Audit {
+        return this.audit;
+    }
+
+    public getCreatedAt(): Date {
+        return this.audit.getCreatedAt();
+    }
+
+    public getUpdatedAt(): Date {
+        return this.audit.getUpdatedAt();
+    }
+
+    public getDeletedAt(): Date | null {
+        return this.audit.getDeletedAt();
     }
 
     public changeName(name: UserName): void {
@@ -75,6 +122,20 @@ export class User {
 
     public isActive(): boolean {
         return this.active;
+    }
+
+    public changeVisibility(visibility: UserVisibility): void {
+        if (this.visibility.equals(visibility)) return;
+        this.visibility = visibility;
+    }
+
+    public changePassword(passwordHash: UserPassHash): void {
+        if (this.passwordHash.equals(passwordHash)) return;
+        this.passwordHash = passwordHash;
+    }
+
+    public verifyPassword(passwordHash: UserPassHash): boolean {
+        return this.passwordHash.equals(passwordHash);
     }
 
     public inactivate(reason?: string): void {

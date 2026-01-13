@@ -1,15 +1,15 @@
-import {UserProfileInfo} from "./UserProfileInfo";
-import {UserPersonalData} from "./UserPersonalData";
-import {UserLocation} from "./UserLocation";
-import {UserName} from "../shared/UserName";
-import {UserEmail} from "../shared/UserEmail";
-import {UserPhoneNumber} from "../shared/UserPhoneNumber";
-import {UserRelationship} from "./UserRelationship";
-import {UserBirthDate} from "./UserBirthDate";
-import {UserBio} from "./UserBio";
-import {UserState} from "./UserState";
-import {UserCountry} from "./UserCountry";
-import {UserCity} from "./UserCity";
+import {UserProfileInfo} from "./profileInfo/UserProfileInfo";
+import {UserPersonalData} from "./personalData/UserPersonalData";
+import {UserLocation} from "./location/UserLocation";
+import {UserName} from "./profileInfo/UserName";
+import {UserEmail} from "./profileInfo/UserEmail";
+import {UserPhoneNumber} from "./profileInfo/UserPhoneNumber";
+import {UserRelationship} from "./personalData/UserRelationship";
+import {UserBirthDate} from "./personalData/UserBirthDate";
+import {UserBio} from "./personalData/UserBio";
+import {UserState} from "./location/UserState";
+import {UserCountry} from "./location/UserCountry";
+import {UserCity} from "./location/UserCity";
 
 
 export class UserInformation {
