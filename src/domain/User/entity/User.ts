@@ -4,17 +4,18 @@ import {UserLocation} from "./vo/information/UserLocation";
 import {UserName} from "./vo/shared/UserName";
 import {UserEmail} from "./vo/shared/UserEmail";
 import {UserPhoneNumber} from "./vo/shared/UserPhoneNumber";
-import {UserZipCode} from "./vo/information/UserZipCode";
 import {UserState} from "./vo/information/UserState";
-import {UserAddress} from "./vo/information/UserAddress";
 import {UserRelationship} from "./vo/information/UserRelationship";
 import {UserBirthDate} from "./vo/information/UserBirthDate";
-import {UserProfession} from "./vo/information/UserProfession";
+import {UserBio} from "./vo/information/UserBio";
+import {UserCountry} from "./vo/information/UserCountry";
+import {UserCity} from "./vo/information/UserCity";
 
 export class User {
     private readonly userId: UserId;
     private userInfo: UserInformation;
     private active: boolean;
+
 
     private constructor(id: UserId, userInfo: UserInformation, active: boolean) {
        this.userId = id;
@@ -67,9 +68,9 @@ export class User {
         this.userInfo = this.userInfo.withUpdatedBirthDate(birthDate);
     }
 
-    public changeProfession(profession: UserProfession): void {
-        if (this.userInfo.getData().getProfession() === profession.getValue()) return;
-        this.userInfo = this.userInfo.withUpdatedProfession(profession);
+    public changeBio(bio: UserBio): void {
+        if (this.userInfo.getData().getBio() === bio.getValue()) return;
+        this.userInfo = this.userInfo.withUpdatedBio(bio);
     }
 
     public isActive(): boolean {
@@ -91,9 +92,9 @@ export class User {
         return this.userInfo.getLocation();
     }
 
-    public changeZipCode(zipCode: UserZipCode): void {
-       if (this.getUserLocation().getZipCode().equals(zipCode)) return;
-       this.userInfo = this.userInfo.withUpdatedZipCode(zipCode);
+    public changeUserCountry(country: UserCountry): void {
+       if (this.getUserLocation().getCountry().equals(country)) return;
+       this.userInfo = this.userInfo.withUpdatedCountry(country);
     }
 
     public changeUserState(state: UserState): void {
@@ -101,9 +102,8 @@ export class User {
        this.userInfo = this.userInfo.withUpdatedState(state);
     }
 
-    public changeUserAddress(address: UserAddress): void {
-       if (this.getUserLocation().getAddress().equals(address)) return;
-       this.userInfo = this.userInfo.withUpdatedAddress(address);
+    public changeUserCity(city: UserCity): void {
+       if (this.getUserLocation().getCity().equals(city)) return;
+       this.userInfo = this.userInfo.withUpdatedCity(city);
     }
-
 }

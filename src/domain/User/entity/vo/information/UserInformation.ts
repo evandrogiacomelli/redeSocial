@@ -6,10 +6,10 @@ import {UserEmail} from "../shared/UserEmail";
 import {UserPhoneNumber} from "../shared/UserPhoneNumber";
 import {UserRelationship} from "./UserRelationship";
 import {UserBirthDate} from "./UserBirthDate";
-import {UserProfession} from "./UserProfession";
-import {UserZipCode} from "./UserZipCode";
+import {UserBio} from "./UserBio";
 import {UserState} from "./UserState";
-import {UserAddress} from "./UserAddress";
+import {UserCountry} from "./UserCountry";
+import {UserCity} from "./UserCity";
 
 
 export class UserInformation {
@@ -68,19 +68,19 @@ export class UserInformation {
         )
     }
 
-    public withUpdatedProfession(profession: UserProfession): UserInformation {
+    public withUpdatedBio(bio: UserBio): UserInformation {
         return new UserInformation(
             this.profileInfo,
-            this.personalData.withProfession(profession),
+            this.personalData.withBio(bio),
             this.userLocation,
         )
     }
 
-    public withUpdatedZipCode(zipCode: UserZipCode): UserInformation {
+    public withUpdatedCountry(country: UserCountry): UserInformation {
         return new UserInformation(
             this.profileInfo,
             this.personalData,
-            this.userLocation.withZipCode(zipCode)
+            this.userLocation.withCountry(country)
         )
     }
 
@@ -92,11 +92,11 @@ export class UserInformation {
         )
     }
 
-    public withUpdatedAddress(address: UserAddress): UserInformation {
+    public withUpdatedCity(city: UserCity): UserInformation {
         return new UserInformation(
             this.profileInfo,
             this.personalData,
-            this.userLocation.withAddress(address),
+            this.userLocation.withCity(city),
         )
     }
 

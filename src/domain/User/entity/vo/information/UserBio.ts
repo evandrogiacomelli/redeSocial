@@ -1,15 +1,15 @@
 
 
-export class UserProfession {
+export class UserBio {
     private readonly profession: string;
 
     private constructor(profession: string) {
         this.profession = profession;
     }
 
-    public static create(profession: string): UserProfession {
+    public static create(profession: string): UserBio {
         const validatedProfession: string = this.validateProfession(profession);
-        return new UserProfession(validatedProfession);
+        return new UserBio(validatedProfession);
     }
 
     private static validateProfession(profession: string): string {
@@ -32,7 +32,7 @@ export class UserProfession {
         return `User Profession: ${this.profession}`;
     }
 
-    public equals(otherProfession: UserProfession): boolean {
+    public equals(otherProfession: UserBio): boolean {
         if (!otherProfession) return false;
         return this.profession === otherProfession.profession;
     }

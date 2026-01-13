@@ -1,75 +1,74 @@
-import {UserAddress} from "./UserAddress";
-import {UserZipCode} from "./UserZipCode";
+import {UserCity} from "./UserCity";
 import {UserState} from "./UserState";
+import {UserCountry} from "./UserCountry";
 
 
 export class UserLocation {
-    private readonly zipCode: UserZipCode;
+    private readonly country: UserCountry;
     private readonly state: UserState;
-    private readonly address: UserAddress;
+    private readonly city: UserCity;
 
-    private constructor(zipCode: UserZipCode, state: UserState, address: UserAddress) {
-        this.zipCode = zipCode;
+    private constructor(country: UserCountry, state: UserState, city: UserCity) {
+        this.country = country;
         this.state = state;
-        this.address = address;
+        this.city = city;
     }
 
-    static create(zipCode: UserZipCode, state: UserState, address: UserAddress): UserLocation {
-        return new UserLocation(zipCode, state, address);
+    static create(country: UserCountry, state: UserState, city: UserCity): UserLocation {
+        return new UserLocation(country, state, city);
     }
 
 
-    public withZipCode(zipCode: UserZipCode): UserLocation {
+    public withCountry(country: UserCountry): UserLocation {
         return new UserLocation(
-            zipCode,
+            country,
             this.state,
-            this.address,
+            this.city,
         )
     }
 
     public withState(state: UserState): UserLocation {
         return new UserLocation(
-            this.zipCode,
+            this.country,
             state,
-            this.address,
+            this.city,
         )
     }
 
-    public withAddress(address: UserAddress): UserLocation {
+    public withCity(city: UserCity): UserLocation {
         return new UserLocation(
-            this.zipCode,
+            this.country,
             this.state,
-            address,
+            city,
         )
     }
 
-
-    public getZipCode(): UserZipCode {
-        return this.zipCode;
+    public getCountry(): UserCountry {
+        return this.country;
     }
 
     public getState(): UserState {
         return this.state;
     }
 
-    public getAddress(): UserAddress {
-        return this.address;
+    public getCity(): UserCity {
+        return this.city;
     }
 
     public toString(): string {
         return `UserLocation {
-        zipCode: ${this.zipCode.toString()},
+        country: ${this.country.toString()},
         state: ${this.state.toString()},
-        address: ${this.address.toString()}
+        city: ${this.city.toString()}
     }`;
     }
 
     public equals(other: UserLocation): boolean {
         if (!other) return false;
 
-        return this.zipCode.equals(other.zipCode) &&
+        return this.country.equals(other.country) &&
             this.state.equals(other.state) &&
-            this.address.equals(other.address);
+            this.city.equals(other.city);
     }
 
 }

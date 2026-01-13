@@ -1,6 +1,3 @@
-import {UserZipCode} from "./UserZipCode";
-
-
 export class UserState {
     private readonly state: string;
 
