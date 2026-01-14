@@ -72,6 +72,10 @@ export class User {
         return this.visibility;
     }
 
+    public getPasswordHash(): UserPassHash {
+        return this.passwordHash;
+    }
+
     public getAudit(): Audit {
         return this.audit;
     }
