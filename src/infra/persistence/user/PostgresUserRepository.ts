@@ -1,7 +1,8 @@
-import {IUserRepository} from "../../../domain/User/ports/IUserRepository";
-import {User} from "../../../domain/User/entity/User";
-import {UserId} from "../../../domain/User/entity/vo/UserId";
-import {postgresPool} from "../../db/postgresPool";
+import { IUserRepository } from "../../../domain/User/ports/IUserRepository";
+import { User } from "../../../domain/User/entity/User";
+import { UserId } from "../../../domain/User/entity/vo/UserId";
+import { UserListResult } from "../../../domain/User/ports/user-list-result";
+import { postgresPool } from "../../db/postgresPool";
 import { mapUserRow } from "./user-row-mapper";
 import {UserInformation} from "../../../domain/User/entity/vo/information/UserInformation";
 import {UserProfileInfo} from "../../../domain/User/entity/vo/information/profileInfo/UserProfileInfo";
@@ -74,4 +75,32 @@ export class PostgresUserRepository implements IUserRepository {
         return mapUserRow(result.rows[0]);
     }
 
+    public async list(page: number, limit: number): Promise<UserListResult> {
+
+        const currentPage: number = Math.max(1, page);
+        const currentLimit: number = Math.max(1, limit);
+        const offset: number = (currentPage - 1) * currentLimit;
+
+        const text = `SELECT * FROM users ORDER BY created_at DESC LIMIT $1 OFFSET $2`;
+        const countText = `SELECT COUNT(*)::int AS total FROM users`;
+
+        const [dataResult, countResult] = await Promise.all([
+            this.pool.query(text, [currentLimit, offset]),
+            this.pool.query(countText),
+        ]);
+
+        const totalItems: number = Number(countResult.rows[0]?.total ?? 0);
+        const totalPages: number = Math.ceil(totalItems / currentLimit);
+
+        return {
+            data: dataResult.rows.map(mapUserRow),
+            pagination: {
+                page: currentPage,
+                limit: currentLimit,
+                totalItems,
+                totalPages,
+            },
+        };
+
+    }
 }

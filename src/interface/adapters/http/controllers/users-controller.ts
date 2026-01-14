@@ -5,7 +5,9 @@ import { CreateUserCommand } from "../../../../application/user/command/createUs
 import { validateCreateUserRequest } from "../validators/create-user-validator";
 import { toCreateUserResponse, toGetUserResponse } from "../mappers/user-mapper";
 import { toCreateUserCommand } from "../mappers/create-user-command-mapper";
+import { toListUsersResponse } from "../mappers/list-users-mapper";
 import {User} from "../../../../domain/User/entity/User";
+import {UserListResult} from "../../../../domain/User/ports/user-list-result";
 
 export async function createUserController(req: Request, res: Response): Promise<void> {
     const errors = validateCreateUserRequest(req.body);
@@ -44,4 +46,30 @@ export async function getUserController(req: Request, res: Response): Promise<vo
         return;
     }
     res.status(200).json(toGetUserResponse(user));
+}
+
+export async function listUsersController(req: Request, res: Response): Promise<void> {
+    const page: number = Number(req.query.page ?? 1);
+    const limit: number = Number(req.query.limit ?? 10);
+
+    if (!Number.isInteger(page) || page < 1) {
+        res.status(400).json({
+            code: "VALIDATION_ERROR",
+            message: "Invalid input",
+            details: { page: "Must be >= 1" },
+        });
+        return;
+    }
+
+    if (!Number.isInteger(limit) || limit < 1 || limit > 100) {
+        res.status(400).json({
+            code: "VALIDATION_ERROR",
+            message: "Invalid input",
+            details: { limit: "Must be between 1 and 100" },
+        });
+        return;
+    }
+
+    const result: UserListResult = await container.listUsers.execute(page, limit);
+    res.status(200).json(toListUsersResponse(result));
 }
