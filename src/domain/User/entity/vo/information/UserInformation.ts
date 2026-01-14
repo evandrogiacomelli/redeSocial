@@ -23,7 +23,21 @@ export class UserInformation {
         this.userLocation = location;
     }
 
-    static create(profileInfo: UserProfileInfo, personalData: UserPersonalData, location: UserLocation): UserInformation {
+    static create(
+        username: string,
+        name: string,
+        email: string,
+        phoneNumber: string,
+        relationship: string,
+        birthDate: Date,
+        bio: string,
+        country: string,
+        state: string,
+        city: string,
+    ): UserInformation {
+        const profileInfo: UserProfileInfo = UserProfileInfo.create(username, name, email, phoneNumber);
+        const personalData: UserPersonalData = UserPersonalData.create(relationship, birthDate, bio);
+        const location: UserLocation = UserLocation.create(country, state, city);
         return new UserInformation(profileInfo, personalData, location);
     }
 

@@ -14,8 +14,11 @@ export class UserLocation {
         this.city = city;
     }
 
-    static create(country: UserCountry, state: UserState, city: UserCity): UserLocation {
-        return new UserLocation(country, state, city);
+    static create(country: string, state: string, city: string): UserLocation {
+        const validatedCountry: UserCountry = UserCountry.create(country);
+        const validatedState: UserState = UserState.create(state);
+        const validatedCity: UserCity = UserCity.create(city);
+        return new UserLocation(validatedCountry, validatedState, validatedCity);
     }
 
 

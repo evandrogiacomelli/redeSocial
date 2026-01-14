@@ -19,9 +19,9 @@ export class CreateUserService {
 
         const id: UserId = UserId.create(randomUUID())
 
-        const profileInfo: UserProfileInfo = UserProfileInfo.create();
-        const personalData: UserPersonalData = UserPersonalData.create();
-        const location: UserLocation = UserLocation.create();
+        const profileInfo: UserProfileInfo = UserProfileInfo.create(command.userName, command.name, command.email, command.phone);
+        const personalData: UserPersonalData = UserPersonalData.create(command.relationship, command.birth, command.bio);
+        const location: UserLocation = UserLocation.create(command.location.country, command.location.state, command.location.city);
         const information: UserInformation = UserInformation.create();
 
         const visibility: UserVisibility = UserVisibility.create();

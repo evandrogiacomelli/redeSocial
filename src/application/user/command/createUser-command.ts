@@ -4,7 +4,7 @@ export interface CreateUserCommand {
     email: string;
     password: string;
     phone: string;
-    birth: string;
+    birth: Date;
     location: {
         country: string;
         state: string;
