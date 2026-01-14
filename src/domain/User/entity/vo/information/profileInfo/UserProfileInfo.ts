@@ -22,7 +22,7 @@ export class UserProfileInfo {
         this.phoneNumber = phoneNumber;
     }
 
-    static create(username: string, name: string, email: string, phoneNumber: string, mainObjective: string): UserProfileInfo {
+    static create(username: string, name: string, email: string, phoneNumber: string): UserProfileInfo {
         const validatedUsername: UserUsername = UserUsername.create(username);
         const validatedName: UserName = UserName.create(name);
         const validatedEmail: UserEmail = UserEmail.create(email);

@@ -11,7 +11,7 @@ import {UserBio} from "./vo/information/personalData/UserBio";
 import {UserCountry} from "./vo/information/location/UserCountry";
 import {UserCity} from "./vo/information/location/UserCity";
 import {UserVisibility} from "./vo/UserVisibility";
-import {Audit} from "./vo/Audit";
+import {UserAudit} from "./vo/UserAudit";
 import {UserPassHash} from "./vo/UserPassHash";
 
 export class User {
@@ -19,7 +19,7 @@ export class User {
     private userInfo: UserInformation;
     private active: boolean;
     private visibility: UserVisibility;
-    private audit: Audit;
+    private audit: UserAudit;
     private passwordHash: UserPassHash;
 
     private constructor(
@@ -27,7 +27,7 @@ export class User {
         userInfo: UserInformation,
         active: boolean,
         visibility: UserVisibility,
-        audit: Audit,
+        audit: UserAudit,
         passwordHash: UserPassHash
     ) {
        this.userId = id;
@@ -44,7 +44,7 @@ export class User {
         visibility: UserVisibility,
         passwordHash: UserPassHash
     ): User {
-        return new User(id, userInfo, true, visibility, Audit.createDefault(), passwordHash);
+        return new User(id, userInfo, true, visibility, UserAudit.createDefault(), passwordHash);
     }
 
     static reconstitute(
@@ -52,7 +52,7 @@ export class User {
         userInfo: UserInformation,
         active: boolean,
         visibility: UserVisibility,
-        audit: Audit,
+        audit: UserAudit,
         passwordHash: UserPassHash
     ): User {
        return new User(id, userInfo, active, visibility, audit, passwordHash);
@@ -76,7 +76,7 @@ export class User {
         return this.passwordHash;
     }
 
-    public getAudit(): Audit {
+    public getAudit(): UserAudit {
         return this.audit;
     }
 

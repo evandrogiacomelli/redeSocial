@@ -12,7 +12,7 @@ User Domain
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "passwordHash": "$2b$12$w8Q7qZ1yZxYQv8Qx8u1k4e7QK...",
   "visibility": "PUBLIC",
@@ -25,7 +25,7 @@ Campos internos (nao retornam em respostas publicas): passwordHash, deletedAt
 
 ENUMS:
 - visibility: "PUBLIC" | "PRIVATE"
-- relacionamento: "SINGLE" | "DATING" | "MARRIED" | "DIVORCED" | "WIDOWED"
+- relationship: "SINGLE" | "DATING" | "MARRIED" | "DIVORCED" | "WIDOWED"
 - Post visibility: "PUBLIC" | "PRIVATE"
 - media.type: (a definir)
 
@@ -45,7 +45,7 @@ Body:
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC"
 }
@@ -63,7 +63,7 @@ Response: 201
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC",
   "isActive": true,
@@ -104,7 +104,7 @@ Response: 200
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC",
   "isActive": true,
@@ -186,7 +186,7 @@ Response: 200
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC",
   "isActive": true,
@@ -218,7 +218,7 @@ Body:
     "state": "PR",
     "city": "Curitiba"
   },
-  "relacionamento": "DATING",
+  "relationship": "DATING",
   "bio": "backend developer",
   "visibility": "PRIVATE"
 }
@@ -236,7 +236,7 @@ Response: 200
     "state": "PR",
     "city": "Curitiba"
   },
-  "relacionamento": "DATING",
+  "relationship": "DATING",
   "bio": "backend developer",
   "visibility": "PRIVATE",
   "isActive": true,

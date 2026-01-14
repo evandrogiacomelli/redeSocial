@@ -6,7 +6,7 @@ export class UserUsername {
     }
 
     public static create(username: string): UserUsername {
-        const validated = this.validateUsername(username);
+        const validated: string = this.validateUsername(username);
         return new UserUsername(validated);
     }
 
