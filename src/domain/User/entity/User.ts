@@ -115,12 +115,12 @@ export class User {
 
     public changeBirthDate(birthDate: UserBirthDate): void {
         const current = this.userInfo.getData().getBirthDate();
-        if (current.getTime() === birthDate.getValue().getTime()) return;
+        if (current.equals(birthDate)) return;
         this.userInfo = this.userInfo.withUpdatedBirthDate(birthDate);
     }
 
     public changeBio(bio: UserBio): void {
-        if (this.userInfo.getData().getBio() === bio.getValue()) return;
+        if (this.userInfo.getData().getBio().equals(bio)) return;
         this.userInfo = this.userInfo.withUpdatedBio(bio);
     }
 

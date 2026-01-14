@@ -50,12 +50,12 @@ export class UserPersonalData{
         return this.relationshipStatus;
     }
 
-    public getBirthDate(): Date {
-        return this.birthDate.getValue();
+    public getBirthDate(): UserBirthDate {
+        return this.birthDate;
     }
 
-    public getBio(): string {
-        return this.bio.getValue();
+    public getBio(): UserBio {
+        return this.bio;
     }
 
 
