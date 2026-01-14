@@ -14,7 +14,7 @@ export class UserUsername {
         if (!username) throw new Error("Username is required");
         const normalized = username.trim().toLowerCase();
         if (normalized.length < 3) throw new Error("Username is too short");
-        if (normalized.length > 30) throw new Error("Username is too long");
+        if (normalized.length > 20) throw new Error("Username is too long");
         if (!/^[a-z0-9._]+$/.test(normalized)) {
             throw new Error("Username has invalid characters");
         }

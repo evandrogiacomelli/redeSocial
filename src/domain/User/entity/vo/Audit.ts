@@ -1,5 +1,3 @@
-const DEFAULT_TIMESTAMP = "2026-01-12T10:00:00Z";
-
 export class Audit {
     private readonly createdAt: Date;
     private readonly updatedAt: Date;
@@ -16,8 +14,8 @@ export class Audit {
     }
 
     public static createDefault(): Audit {
-        const defaultDate = new Date(DEFAULT_TIMESTAMP);
-        return new Audit(defaultDate, defaultDate, null);
+        const now = new Date();
+        return new Audit(now, now, null);
     }
 
     public getCreatedAt(): Date {

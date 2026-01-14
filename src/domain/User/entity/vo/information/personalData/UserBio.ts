@@ -1,39 +1,39 @@
 
 
 export class UserBio {
-    private readonly profession: string;
+    private readonly bio: string;
 
-    private constructor(profession: string) {
-        this.profession = profession;
+    private constructor(bio: string) {
+        this.bio = bio;
     }
 
-    public static create(profession: string): UserBio {
-        const validatedProfession: string = this.validateProfession(profession);
-        return new UserBio(validatedProfession);
+    public static create(bio: string): UserBio {
+        const validatedBio: string = this.validateBio(bio);
+        return new UserBio(validatedBio);
     }
 
-    private static validateProfession(profession: string): string {
-        if (!profession) throw new Error("Profession is required");
+    private static validateBio(bio: string): string {
+        if (!bio) throw new Error("Bio is required");
 
-        const trimmed: string = profession.trim();
+        const trimmed: string = bio.trim();
 
-        if (trimmed.length < 3) throw new Error("Profession field is too short");
-        if (trimmed.length > 60) throw new Error("Profession field is too large");
+        if (trimmed.length < 3) throw new Error("Bio field is too short");
+        if (trimmed.length > 280) throw new Error("Bio field is too large");
 
         return trimmed;
     }
 
 
     public getValue(): string {
-        return this.profession;
+        return this.bio;
     }
 
     public toString(): string {
-        return `User Profession: ${this.profession}`;
+        return `User Bio: ${this.bio}`;
     }
 
-    public equals(otherProfession: UserBio): boolean {
-        if (!otherProfession) return false;
-        return this.profession === otherProfession.profession;
+    public equals(otherBio: UserBio): boolean {
+        if (!otherBio) return false;
+        return this.bio === otherBio.bio;
     }
 }
