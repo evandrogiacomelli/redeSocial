@@ -1,6 +1,6 @@
 // @ts-ignore
 import express, { Express, Request, Response } from "express";
-import { registerRoutes } from "./routes/register-routes";
+import { attachRoutes } from "./routes/routes";
 import { errorMiddleware } from "./middlewares/error-middleware";
 
 export class ApiServer {
@@ -16,7 +16,7 @@ export class ApiServer {
       });
     });
 
-    registerRoutes(app);
+    attachRoutes(app);
     app.use(errorMiddleware);
     const port = Number(process.env.PORT) || 3000;
     app.listen(port, () => console.log(`Server running on port ${port}`));

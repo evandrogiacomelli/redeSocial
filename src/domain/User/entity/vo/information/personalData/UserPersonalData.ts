@@ -14,7 +14,7 @@ export class UserPersonalData{
         this.bio = bio;
     }
 
-    static create(relationshipStatus: string, birthDate: Date, bio: string, instagramLink: string): UserPersonalData {
+    static create(relationshipStatus: string, birthDate: Date, bio: string): UserPersonalData {
         const validatedRelationShip: UserRelationship = UserRelationship.create(relationshipStatus);
         const validatedBirthDate: UserBirthDate = UserBirthDate.create(birthDate);
         const validatedProfession: UserBio = UserBio.create(bio);

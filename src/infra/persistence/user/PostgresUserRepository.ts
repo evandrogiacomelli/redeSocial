@@ -2,7 +2,7 @@ import {IUserRepository} from "../../../domain/User/ports/IUserRepository";
 import {User} from "../../../domain/User/entity/User";
 import {postgresPool} from "../../db/postgresPool";
 
-export class postgresUserRepository implements IUserRepository {
+export class PostgresUserRepository implements IUserRepository {
     private readonly pool = postgresPool;
 
     public async save(user: User): Promise<void> {

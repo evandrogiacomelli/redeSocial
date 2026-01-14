@@ -1,6 +1,6 @@
 // @ts-ignore
 import { NextFunction, Request, Response } from "express";
-import { HttpError } from "../http/HttpError";
+import { HttpError } from "../http/http-error";
 
 const mockToken = "mock-token-123";
 

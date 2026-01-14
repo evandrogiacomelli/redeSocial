@@ -44,7 +44,7 @@ Body:
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC"
 }
@@ -64,7 +64,7 @@ Response: `201`
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC",
   "isActive": true,
@@ -113,7 +113,7 @@ Response: `200`
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC",
   "isActive": true,
@@ -202,7 +202,7 @@ Response: `200`
     "state": "PR",
     "city": "Pato Branco"
   },
-  "relacionamento": "SINGLE",
+  "relationship": "SINGLE",
   "bio": "developer",
   "visibility": "PUBLIC",
   "isActive": true,
@@ -238,7 +238,7 @@ Body:
     "state": "PR",
     "city": "Curitiba"
   },
-  "relacionamento": "DATING",
+  "relationship": "DATING",
   "bio": "backend developer",
   "visibility": "PRIVATE"
 }
@@ -258,7 +258,7 @@ Response: `200`
     "state": "PR",
     "city": "Curitiba"
   },
-  "relacionamento": "DATING",
+  "relationship": "DATING",
   "bio": "backend developer",
   "visibility": "PRIVATE",
   "isActive": true,
@@ -640,7 +640,7 @@ User visibility:
 - `PUBLIC`
 - `PRIVATE`
 
-Relacionamento:
+Relationship:
 - `SINGLE`
 - `DATING`
 - `MARRIED`

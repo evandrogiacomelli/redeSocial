@@ -1,4 +1,4 @@
-import { HttpError } from "../http/HttpError";
+import { HttpError } from "../http/http-error";
 
 export function mapError(error: unknown): HttpError {
   if (error instanceof HttpError) return error;
