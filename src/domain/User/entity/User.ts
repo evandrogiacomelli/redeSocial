@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { UserCreationData } from "./UserCreationData";
+import { UserReconstitutionData } from "./UserReconstitutionData";
 import {UserId} from "./vo/UserId";
 import {UserInformation} from "./vo/information/UserInformation";
 import {UserLocation} from "./vo/information/location/UserLocation";
@@ -77,6 +78,33 @@ export class User {
         passwordHash: UserPassHash
     ): User {
        return new User(id, userInfo, active, visibility, audit, passwordHash);
+    }
+
+    static reconstituteFromData(data: UserReconstitutionData): User {
+        const info: UserInformation = UserInformation.create(
+            data.userName,
+            data.name,
+            data.email,
+            data.phone,
+            data.relationship,
+            data.birth,
+            data.bio,
+            data.location.country,
+            data.location.state,
+            data.location.city,
+        );
+        const audit: UserAudit = UserAudit.create(data.createdAt, data.updatedAt, data.deletedAt);
+        const visibility: UserVisibility = UserVisibility.create(data.visibility);
+        const passwordHash: UserPassHash = UserPassHash.create(data.passwordHash);
+
+        return User.reconstitute(
+            UserId.create(data.id),
+            info,
+            data.isActive,
+            visibility,
+            audit,
+            passwordHash,
+        );
     }
 
 

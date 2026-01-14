@@ -1,15 +1,22 @@
 import {IUserRepository} from "../../../domain/User/ports/IUserRepository";
 import {User} from "../../../domain/User/entity/User";
+import {UserId} from "../../../domain/User/entity/vo/UserId";
 import {postgresPool} from "../../db/postgresPool";
+import { mapUserRow } from "./user-row-mapper";
+import {UserInformation} from "../../../domain/User/entity/vo/information/UserInformation";
+import {UserProfileInfo} from "../../../domain/User/entity/vo/information/profileInfo/UserProfileInfo";
+import {UserPersonalData} from "../../../domain/User/entity/vo/information/personalData/UserPersonalData";
+import {UserLocation} from "../../../domain/User/entity/vo/information/location/UserLocation";
+import {QueryResult} from "pg";
 
 export class PostgresUserRepository implements IUserRepository {
     private readonly pool = postgresPool;
 
     public async save(user: User): Promise<void> {
-        const info = user.getInfo();
-        const profile = info.getInfo();
-        const data = info.getData();
-        const location = info.getLocation();
+        const info: UserInformation = user.getInfo();
+        const profile: UserProfileInfo = info.getInfo();
+        const data: UserPersonalData = info.getData();
+        const location: UserLocation = info.getLocation();
 
         const columns = [
             "id",
@@ -31,7 +38,7 @@ export class PostgresUserRepository implements IUserRepository {
             "deleted_at",
         ];
 
-        const values = [
+        const values: (string | boolean | number | Date | null) [] = [
             user.getId().getValue(),
             profile.getUsername().getValue(),
             profile.getName().getValue(),
@@ -57,6 +64,14 @@ export class PostgresUserRepository implements IUserRepository {
         `;
 
         await this.pool.query(text, values);
+    }
+
+    public async findById(id: UserId): Promise<User | null> {
+        const text = `SELECT * FROM users WHERE id = $1 LIMIT 1`;
+
+        const result: QueryResult = await this.pool.query(text, [id.getValue()]);
+        if (result.rowCount === 0) return null;
+        return mapUserRow(result.rows[0]);
     }
 
 }
