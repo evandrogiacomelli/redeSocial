@@ -26,7 +26,15 @@ export async function createUserController(req: Request, res: Response): Promise
 }
 
 export async function getUserController(req: Request, res: Response): Promise<void> {
-    const id: string = req.body.id;
+
+
+    // TODO Tipagem de Srhoedinger. Pode ser ou podem serem.
+    const id  = req.params.id;
+
+    console.log(req.params.id);
+    console.log(req.params);
+    console.log(id);
+
     if (!id) {
         res.status(400).json({
             code: "VALIDATION_ERROR",
