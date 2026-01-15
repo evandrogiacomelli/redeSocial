@@ -5,7 +5,6 @@ import {GetUserService} from "../../../../application/user/use-cases/getUser";
 import {ListUsersService} from "../../../../application/user/use-cases/listUsers";
 import {PasswordHasher} from "../../../../application/user/ports/password-hasher";
 import {BcryptPasswordHasher} from "../../../../infra/security/bcrypt-pass-hash";
-import {LoginService} from "../../../../application/user/use-cases/loginService";
 
 class UserContainer {
     private userRepository: IUserRepository = new PostgresUserRepository();
@@ -14,8 +13,6 @@ class UserContainer {
     createUser: CreateUserService = new CreateUserService(this.userRepository, this.passwordHasher);
     getUser: GetUserService = new GetUserService(this.userRepository);
     listUsers: ListUsersService = new ListUsersService(this.userRepository);
-
-    login: LoginService = new LoginService(this.userRepository, this.passwordHasher);
 }
 
 export const container = new UserContainer();

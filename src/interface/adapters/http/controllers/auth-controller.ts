@@ -1,9 +1,10 @@
 // @ts-ignore
 import { Request, Response } from "express";
 import { toLoginCommandUser } from "../mappers/login-command-mapper";
-import { container } from "../container/user-container";
+import { authContainer } from "../container/auth-container";
 import { AuthUser } from "../../../../domain/User/ports/authUser";
 import {UserLoginCommand} from "../../../../application/user/command/userLogin-command";
+import {LoginResult} from "../../../../application/user/ports/login-result";
 
 
 export async function loginController(req: Request, res: Response): Promise<void> {
@@ -28,7 +29,7 @@ export async function loginController(req: Request, res: Response): Promise<void
     }
 
     const command: UserLoginCommand = toLoginCommandUser(req.body);
-    const result: AuthUser | null = await container.login.execute(command);
+    const result: LoginResult | null = await authContainer.login.execute(command);
     if (!result) {
         res.status(401).json({
             code: "UNAUTHORIZED",
@@ -38,8 +39,8 @@ export async function loginController(req: Request, res: Response): Promise<void
     }
 
     res.status(200).json({
-        accessToken: "mock-token-123",
+        accessToken: result.accessToken,
         tokenType: "Bearer",
-        expiresInSec: 86400,
+        expiresInSec: result.expiresInSec,
     });
 }
