@@ -9,6 +9,8 @@ import {UserProfileInfo} from "../../../domain/User/entity/vo/information/profil
 import {UserPersonalData} from "../../../domain/User/entity/vo/information/personalData/UserPersonalData";
 import {UserLocation} from "../../../domain/User/entity/vo/information/location/UserLocation";
 import {QueryResult} from "pg";
+import {UserEmail} from "../../../domain/User/entity/vo/information/profileInfo/UserEmail";
+import {AuthUser} from "../../../domain/User/ports/authUser";
 
 export class PostgresUserRepository implements IUserRepository {
     private readonly pool = postgresPool;
@@ -101,6 +103,23 @@ export class PostgresUserRepository implements IUserRepository {
                 totalPages,
             },
         };
-
     }
+
+    public async findByEmail(email: UserEmail): Promise<AuthUser | null> {
+
+        const text = `SELECT id, email, password_hash, is_active FROM users WHERE email = $1 LIMIT 1`;
+        const data: QueryResult = await this.pool.query(text, [email.getValue()]);
+
+        if (data.rowCount === 0) return null;
+
+        const row = data.rows[0];
+        return {
+            id: row.id,
+            email: row.email,
+            passwordHash: row.password_hash,
+            isActive: row.is_active,
+        };
+    }
+
+
 }

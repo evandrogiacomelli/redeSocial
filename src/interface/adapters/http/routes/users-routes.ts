@@ -7,3 +7,4 @@ export const usersRoutes = Router();
 usersRoutes.post("/", createUserController);
 usersRoutes.get("/", listUsersController);
 usersRoutes.get("/:id", getUserController);
+
