@@ -1,4 +1,4 @@
-export interface CreateUserResponseDto {
+export interface UserPrivateResponseDto {
   id: string;
   userName: string;
   name: string;
