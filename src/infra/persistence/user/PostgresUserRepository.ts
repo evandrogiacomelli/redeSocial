@@ -79,7 +79,7 @@ export class PostgresUserRepository implements IUserRepository {
 
         const currentPage: number = Math.max(1, page);
         const currentLimit: number = Math.max(1, limit);
-        const offset: number = (currentPage - 1) * currentLimit;
+        const offset: number = (currentPage - 1) * currentLimit;;
 
         const text = `SELECT * FROM users ORDER BY created_at DESC LIMIT $1 OFFSET $2`;
         const countText = `SELECT COUNT(*)::int AS total FROM users`;

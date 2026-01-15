@@ -2,13 +2,17 @@ import {IUserRepository} from "../../../domain/User/ports/IUserRepository";
 import {CreateUserCommand} from "../command/createUser-command";
 import {User} from "../../../domain/User/entity/User";
 import {UserCreationData} from "../../../domain/User/entity/UserCreationData";
+import {PasswordHasher} from "../ports/password-hasher";
 
 export class CreateUserService {
     constructor(
         private readonly repository: IUserRepository,
+        private readonly passwordHasher: PasswordHasher,
     ) {}
 
     async execute(command: CreateUserCommand): Promise<User> {
+
+        const hash = await this.passwordHasher.hash(command.password);
 
         const data: UserCreationData = {
             userName: command.userName,
@@ -19,7 +23,7 @@ export class CreateUserService {
             birth: command.birth,
             bio: command.bio,
             visibility: command.visibility,
-            password: command.password,
+            password: hash,
             location: {
                 country: command.location.country,
                 state: command.location.state,
