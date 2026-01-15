@@ -27,13 +27,7 @@ export async function createUserController(req: Request, res: Response): Promise
 
 export async function getUserController(req: Request, res: Response): Promise<void> {
 
-
-    // TODO Tipagem de Srhoedinger. Pode ser ou podem serem.
-    const id  = req.params.id;
-
-    console.log(req.params.id);
-    console.log(req.params);
-    console.log(id);
+    const id: string | string[]  = req.params.id;
 
     if (!id) {
         res.status(400).json({
@@ -44,7 +38,7 @@ export async function getUserController(req: Request, res: Response): Promise<vo
         return;
     }
 
-    const user: User | null = await container.getUser.execute(id);
+    const user: User | null = await container.getUser.execute(id as string);
     if (!user) {
         res.status(404).json({
             code: "NOT_FOUND",

@@ -19,10 +19,6 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
     if (typeof decoded === "string") throw new HttpError(401, "UNAUTHORIZED", "Invalid credentials");
     if (!decoded.sub) throw new HttpError(401, "UNAUTHORIZED", "Invalid credentials");
 
-    // console.log(req.body.userId)
-    // const userId: string = decoded.sub;
-    // req.body.userId = userId;
-
     req.userId = decoded.sub;
 
     next();
