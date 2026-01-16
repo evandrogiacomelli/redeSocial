@@ -159,4 +159,24 @@ export class PostgresUserRepository implements IUserRepository {
 
         await this.pool.query(text, params);
     }
+
+    public async deleteUser(user: User): Promise<void> {
+        const columns = [
+            "is_active",
+            "updated_at",
+            "deleted_at",
+        ];
+
+        const values: (boolean | Date | null | string)[] = [
+            user.isActive(),
+            user.getUpdatedAt(),
+            user.getDeletedAt(),
+        ];
+
+        const assignments = columns.map((col, index) => `${col} = $${index + 1}`).join(", ");
+        const text = `UPDATE users SET ${assignments} WHERE id = $${columns.length + 1}`;
+        const params = values.concat(user.getId().getValue());
+
+        await this.pool.query(text, params);
+    }
 }

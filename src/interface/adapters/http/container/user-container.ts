@@ -6,6 +6,7 @@ import {ListUsersService} from "../../../../application/user/use-cases/listUsers
 import {PasswordHasher} from "../../../../application/user/ports/password-hasher";
 import {BcryptPasswordHasher} from "../../../../infra/security/bcrypt-pass-hash";
 import {UpdateUserService} from "../../../../application/user/use-cases/updateUser";
+import {DeleteUserService} from "../../../../application/user/use-cases/deleteUser";
 
 class UserContainer {
     private userRepository: IUserRepository = new PostgresUserRepository();
@@ -15,6 +16,7 @@ class UserContainer {
     getUser: GetUserService = new GetUserService(this.userRepository);
     listUsers: ListUsersService = new ListUsersService(this.userRepository);
     updateUser: UpdateUserService = new UpdateUserService(this.userRepository);
+    deleteUser: DeleteUserService = new DeleteUserService(this.userRepository);
 }
 
 export const container = new UserContainer();

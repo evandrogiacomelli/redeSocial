@@ -3,7 +3,6 @@ import {CreateUserCommand} from "../command/createUser-command";
 import {User} from "../../../domain/User/entity/User";
 import {UserCreationData} from "../../../domain/User/entity/UserCreationData";
 import {PasswordHasher} from "../ports/password-hasher";
-import {UserName} from "../../../domain/User/entity/vo/information/profileInfo/UserName";
 
 export class CreateUserService {
     constructor(

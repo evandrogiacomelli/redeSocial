@@ -136,3 +136,24 @@ export async function patchMeController(req: Request, res: Response): Promise<vo
 
     res.status(200).json(toGetMeResponse(user));
 }
+
+export async function deleteMeController(req: Request, res: Response): Promise<void> {
+    const id: string | undefined = req.userId;
+
+    if (!id) {
+        res.status(401).json({
+            code: "UNAUTHORIZED",
+            message: "Authentication required",
+        })
+    }
+
+    const deleted: boolean | null = await container.deleteUser.execute(id as string);
+    if (!deleted) {
+        res.status(404).json({
+            code: "NOT_FOUND",
+            message: "User not found",
+        })
+    }
+
+    res.json(204);
+}

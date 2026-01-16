@@ -195,7 +195,7 @@ export class User {
         return this.passwordHash.equals(passwordHash);
     }
 
-    public inactivate(reason?: string): void {
+    public inactivate(): void {
         if (!this.active) return;
         this.active = false;
     }
