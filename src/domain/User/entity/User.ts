@@ -129,6 +129,10 @@ export class User {
         return this.audit;
     }
 
+    public touch(): void {
+        this.audit = this.audit.touch();
+    }
+
     public getCreatedAt(): Date {
         return this.audit.getCreatedAt();
     }

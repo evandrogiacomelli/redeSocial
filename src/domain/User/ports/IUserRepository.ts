@@ -7,6 +7,7 @@ import {AuthUser} from "./authUser";
 
 export interface IUserRepository {
     save(user: User): Promise<void>;
+    update(user: User): Promise<void>;
     findById(id: UserId): Promise<User | null>;
     findByEmail(email: UserEmail): Promise<AuthUser | null>;
     // findByUserName(userName: UserUsername): Promise<User | null>;

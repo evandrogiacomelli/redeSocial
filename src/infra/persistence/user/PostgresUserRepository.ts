@@ -62,12 +62,12 @@ export class PostgresUserRepository implements IUserRepository {
         ];
 
         const placeholders = columns.map((col, index) => `$${index + 1}`).join(", ");
-        const text = `
-            INSERT INTO users (${columns.join(", ")}) VALUES (${placeholders})
-        `;
+        const text = `INSERT INTO users (${columns.join(", ")}) VALUES (${placeholders})`;
 
         await this.pool.query(text, values);
     }
+
+
 
     public async findById(id: UserId): Promise<User | null> {
         const text = `SELECT * FROM users WHERE id = $1 LIMIT 1`;
@@ -81,7 +81,7 @@ export class PostgresUserRepository implements IUserRepository {
 
         const currentPage: number = Math.max(1, page);
         const currentLimit: number = Math.max(1, limit);
-        const offset: number = (currentPage - 1) * currentLimit;;
+        const offset: number = (currentPage - 1) * currentLimit;
 
         const text = `SELECT * FROM users ORDER BY created_at DESC LIMIT $1 OFFSET $2`;
         const countText = `SELECT COUNT(*)::int AS total FROM users`;
@@ -121,5 +121,42 @@ export class PostgresUserRepository implements IUserRepository {
         };
     }
 
+    public async update(user: User): Promise<void> {
+        const info: UserInformation = user.getInfo();
+        const profile: UserProfileInfo = info.getInfo();
+        const data: UserPersonalData = info.getData();
+        const location: UserLocation = info.getLocation();
 
+        const columns = [
+            "name",
+            "phone",
+            "birth",
+            "country",
+            "state",
+            "city",
+            "relationship",
+            "bio",
+            "visibility",
+            "updated_at",
+        ];
+
+        const values: (string | boolean | number | Date | null)[] = [
+            profile.getName().getValue(),
+            profile.getPhoneNumber().getValue(),
+            data.getBirthDate().getValue(),
+            location.getCountry().getValue(),
+            location.getState().getValue(),
+            location.getCity().getValue(),
+            data.getRelationship().getValue(),
+            data.getBio().getValue(),
+            user.getVisibility().getValue(),
+            user.getUpdatedAt(),
+        ];
+
+        const assignments = columns.map((col, index) => `${col} = $${index + 1}`).join(", ");
+        const text = `UPDATE users SET ${assignments} WHERE id = $${columns.length + 1}`;
+        const params = values.concat(user.getId().getValue());
+
+        await this.pool.query(text, params);
+    }
 }
