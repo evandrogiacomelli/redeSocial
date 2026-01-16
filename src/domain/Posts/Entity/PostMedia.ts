@@ -1,16 +1,30 @@
-import {MediaType} from "express";
 import {PostType} from "./PostType";
 
 export class PostMedia {
-    private type: PostType;
-    private url: string;
+    private readonly type: PostType;
+    private readonly url: string;
 
     private constructor(type: PostType, url: string) {
         this.type = type;
         this.url = url;
     }
 
-    public create(type: MediaType, url: string): PostMedia  {
-        return this.constructor(type, url);
+    public static create(type: PostType, url: string): PostMedia  {
+        return new PostMedia(type, url);
+    }
+
+    public getType(): PostType {
+        return this.type;
+    }
+
+    public getUrl(): string {
+        return this.url;
+    }
+
+    public toJSON(): { type: PostType; url: string } {
+        return {
+            type: this.type,
+            url: this.url,
+        };
     }
 }

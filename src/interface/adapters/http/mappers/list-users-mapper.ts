@@ -1,4 +1,4 @@
-import { ListUsersResponseDto } from "../dtos/responses/list-users-response";
+import { ListUsersResponseDto } from "../dtos/user/responses/list-users-response";
 import { UserListResult } from "../../../../domain/User/ports/user-list-result";
 import { User } from "../../../../domain/User/entity/User";
 

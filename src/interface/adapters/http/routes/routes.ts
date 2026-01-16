@@ -5,10 +5,13 @@ import {authMiddleware} from "../auth/auth-middleware";
 import { usersRoutes } from "./users-routes";
 import {authRoutes} from "./auth-routes";
 import {meRoutes} from "./me-routes";
+import {postRoutes} from "./post-routes";
 
 export function attachRoutes(app: Express): void {
   app.use("/users", usersRoutes);
   app.use("/me", authMiddleware, meRoutes);
   app.use("/auth", authRoutes)
   app.use("/test", authMiddleware, testRoutes);
+
+  app.use("/posts", authMiddleware, postRoutes);
 }

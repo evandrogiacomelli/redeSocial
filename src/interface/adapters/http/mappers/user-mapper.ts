@@ -1,5 +1,5 @@
-import { UserPrivateResponseDto } from "../dtos/responses/user-private-response";
-import { GetUserResponseDto } from "../dtos/responses/get-user-response";
+import { UserPrivateResponseDto } from "../dtos/user/responses/user-private-response";
+import { GetUserResponseDto } from "../dtos/user/responses/get-user-response";
 import { User } from "../../../../domain/User/entity/User";
 
 export function toCreateUserResponse(user: User): UserPrivateResponseDto {

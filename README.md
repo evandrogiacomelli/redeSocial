@@ -1,6 +1,6 @@
 # Rede Social API
 
-Contratos de endpoints para Users, Login e Posts.
+Contratos de endpoints para Users, Login e Post.
 
 ## Indice
 
@@ -13,7 +13,7 @@ Contratos de endpoints para Users, Login e Posts.
   - [DeleteMe](#deleteme)
 - [Login](#login)
   - [Login](#login-endpoint)
-- [Posts](#posts)
+- [Post](#posts)
   - [CreatePost](#createpost)
   - [GetPost](#getpost)
   - [ListPostsByAuthor](#listpostsbyauthor)
@@ -350,7 +350,7 @@ Errors:
   }
   ```
 
-## Posts
+## Post
 
 ### CreatePost
 
